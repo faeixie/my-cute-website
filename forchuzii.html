@@ -1,0 +1,575 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chuzii's Birthday Gift Room 💙</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Pacifico&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: 'Quicksand', sans-serif;
+      color: #17345f;
+      background: linear-gradient(135deg, #edf8ff, #c9e5ff, #f5f9ff);
+      text-align: center;
+    }
+
+    .hero {
+      padding: 50px 20px 30px;
+    }
+
+    .gojo {
+      font-size: 46px;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: clamp(32px, 7vw, 52px);
+      color: #2455a4;
+      margin: 0 0 12px;
+    }
+
+    .subtitle {
+      max-width: 560px;
+      margin: 0 auto;
+      line-height: 1.8;
+      font-size: 16px;
+    }
+
+    .tiny-note {
+      color: #5276a5;
+      font-size: 13px;
+      margin-top: 15px;
+    }
+
+    .gift-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 20px;
+      max-width: 1050px;
+      padding: 20px;
+      margin: 0 auto 35px;
+    }
+
+    .gift-card {
+      background: rgba(255, 255, 255, 0.92);
+      border: 2px solid #d0e7ff;
+      border-radius: 24px;
+      padding: 23px 18px;
+      box-shadow: 0 8px 22px rgba(44, 91, 153, 0.10);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .gift-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 25px rgba(44, 91, 153, 0.16);
+    }
+
+    .gift-icon {
+      font-size: 42px;
+      margin-bottom: 8px;
+    }
+
+    .gift-card h2 {
+      font-size: 20px;
+      margin: 7px 0;
+      color: #2455a4;
+    }
+
+    .gift-card > p {
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    button {
+      font-family: 'Quicksand', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      border-radius: 30px;
+      padding: 12px 19px;
+      background: #3268b7;
+      color: white;
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    button:hover:not(:disabled) {
+      transform: scale(1.04);
+      background: #214d91;
+    }
+
+    button:disabled {
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+
+    .gift-content {
+      display: none;
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px dashed #a8cbee;
+      animation: appear 0.4s ease;
+    }
+
+    .gift-content.show {
+      display: block;
+    }
+
+    .gift-content img {
+      display: block;
+      width: 100%;
+      max-width: 270px;
+      max-height: 270px;
+      object-fit: contain;
+      border-radius: 16px;
+      margin: 15px auto;
+      background: #edf6ff;
+    }
+
+    .gift-message {
+      line-height: 1.8;
+      font-size: 14px;
+      overflow-wrap: anywhere;
+    }
+
+    .letter-section {
+      display: none;
+      max-width: 750px;
+      margin: 30px auto 55px;
+      padding: 20px;
+      animation: appear 0.5s ease;
+    }
+
+    .letter-section.show {
+      display: block;
+    }
+
+    .letter {
+      background: #fff;
+      border: 3px solid #c4e0ff;
+      border-radius: 26px;
+      padding: clamp(22px, 5vw, 42px);
+      box-shadow: 0 10px 28px rgba(44, 91, 153, 0.13);
+      text-align: left;
+      line-height: 1.9;
+    }
+
+    .letter h2 {
+      text-align: center;
+      font-family: 'Pacifico', cursive;
+      color: #2455a4;
+      font-size: 30px;
+      margin-top: 0;
+    }
+
+    .letter-sign {
+      text-align: right;
+      color: #3268b7;
+      font-weight: 700;
+      margin-top: 25px;
+    }
+
+    .secret-area {
+      margin-top: 25px;
+      padding: 20px 12px;
+      border: 2px dashed #8cb9ec;
+      border-radius: 20px;
+      text-align: center;
+      background: #f2f8ff;
+    }
+
+    .secret-area h3 {
+      margin-top: 0;
+      color: #2455a4;
+    }
+
+    .secret-image {
+      display: none;
+      width: 100%;
+      max-width: 280px;
+      max-height: 280px;
+      object-fit: contain;
+      border-radius: 16px;
+      margin: 16px auto;
+      background: #edf6ff;
+    }
+
+    .secret-image.show {
+      display: block;
+    }
+
+    .secret-caption {
+      display: none;
+      font-weight: 700;
+      color: #2455a4;
+      text-align: center;
+    }
+
+    .secret-caption.show {
+      display: block;
+    }
+
+    .secret-status {
+      font-size: 12px;
+      color: #55759c;
+      margin: 12px 0 0;
+      text-align: center;
+    }
+
+    .footer {
+      padding: 0 20px 30px;
+      color: #5276a5;
+      font-size: 13px;
+    }
+
+    @keyframes appear {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 500px) {
+      .hero {
+        padding-top: 38px;
+      }
+
+      .gift-grid {
+        padding: 14px;
+      }
+
+      .letter-section {
+        padding: 12px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="hero">
+    <div class="gojo">💙 🕶️ 💙</div>
+
+    <h1>Happy Birthday, Chuzii!</h1>
+
+    <p class="subtitle">
+      HAPPIEST BIRTHDAY, MARYAM!! 🎂💙
+      Welcome to your very own little gift room!
+      I made some tiny surprises for you, so open them one by one.
+    </p>
+
+    <p class="tiny-note">
+      Gojo vibes, birthday chaos, and a little corner made just for you ✨
+    </p>
+  </header>
+
+  <main>
+    <section class="gift-grid">
+
+      <!-- GIFT 1 -->
+      <article class="gift-card">
+        <div class="gift-icon">💌</div>
+        <h2>Gift 1: A Little Reminder</h2>
+        <p>A tiny reminder for my Chuzii 💙</p>
+
+        <button onclick="toggleGift(1)">Open gift 🎁</button>
+
+        <div class="gift-content" id="gift1">
+          <img
+            src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNzhxYWZkeXNybmZpdWJqeHd5cXh4NnliNG82YmtjcGdueGoyOGt6ZiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/KztT2c4u8mYYUiMKdJ/giphy.gif"
+            alt="A little reminder GIF">
+
+          <p class="gift-message">
+            Chuzii, never forget that YOU matter. 💙
+            You deserve happiness, kindness, and people who appreciate
+            you for who you are. Even on the messy days, please remember
+            that you are your own special person. Keep being you, girl!
+          </p>
+        </div>
+      </article>
+
+      <!-- GIFT 2 -->
+      <article class="gift-card">
+        <div class="gift-icon">🏆</div>
+        <h2>Gift 2: Your Official Award</h2>
+        <p>And the award goes to... MARYAM!</p>
+
+        <button onclick="toggleGift(2)">Open gift 🎁</button>
+
+        <div class="gift-content" id="gift2">
+          <img
+            src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNzhxYWZkeXNybmZpdWJqeHd5cXh4NnliNG82YmtjcGdueGoyOGt6ZiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/kZqbBT64ECtjy/giphy.gif"
+            alt="Your official award GIF">
+
+          <p class="gift-message">
+            🏆 OFFICIAL AWARD ANNOUNCEMENT! 🏆
+            This award goes to Chuzii for being a one-of-a-kind human
+            and the birthday girl of the day.
+            The judges have decided. The results are final.
+            No appeals accepted. Congratulations, madam! 😌💙
+          </p>
+        </div>
+      </article>
+
+      <!-- GIFT 3 -->
+      <article class="gift-card">
+        <div class="gift-icon">🫂</div>
+        <h2>Gift 3: A Virtual Hug</h2>
+        <p>Sending a hug through the screen!</p>
+
+        <button onclick="toggleGift(3)">Open gift 🎁</button>
+
+        <div class="gift-content" id="gift3">
+          <img
+            src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcDc2OW10b3lhaHNsanFycnExMmI0NnBobnA5YnhtMHhqbmdzcWM0MiZlcD12MV9zdGlja2Vyc19zZWFyY2gmY3Q9cw/fvN5KrNcKKUyX7hNIA/giphy.gif"
+            alt="Virtual hug GIF">
+
+          <p class="gift-message">
+            COME HEREEE, CHUZII 🫂💙
+            This is your official virtual hug. You don't have to have
+            everything figured out all the time. Take a breath, rest
+            when you need to, and remember that you deserve gentle days
+            and plenty of reasons to smile.
+          </p>
+        </div>
+      </article>
+
+      <!-- GIFT 4 -->
+      <article class="gift-card">
+        <div class="gift-icon">🎂</div>
+        <h2>Gift 4: Birthday Treat</h2>
+        <p>A little birthday treat just for you!</p>
+
+        <button onclick="toggleGift(4)">Open gift 🎁</button>
+
+        <div class="gift-content" id="gift4">
+          <img
+            src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNTlsYm5pbTRjYnVlN3Btbms2dXN2Y3ZyNms1YWF0bXdtenoyMGhrciZlcD12MV9naWZzX3NlYXJjaCZjdD1n/Z9jh7tAeMzrjMGxAfQ/giphy.gif"
+            alt="Birthday treat GIF">
+
+          <p class="gift-message">
+            A birthday treat for my birthday girl! 🎂✨
+            May your day be filled with yummy food, happy moments,
+            lots of laughter, and surprises that make you go,
+            "OMG, THIS IS SO CUTE!"
+            Today is your day, so enjoy it, Chuzii! 💙
+          </p>
+        </div>
+      </article>
+
+      <!-- GIFT 5 -->
+      <article class="gift-card">
+        <div class="gift-icon">💙</div>
+        <h2>Gift 5: A Little Compliment</h2>
+        <p>Because Chuzii deserves some appreciation too.</p>
+
+        <button onclick="toggleGift(5)">Open gift 🎁</button>
+
+        <div class="gift-content" id="gift5">
+          <img
+            src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExYmwycWZldXdzMXF5b2hrMHU5eW5pZDhvYnp1b3M1ZHo1ejJ0M2E4cyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/mi9qM0yOOwXDgEHv91/giphy.gif"
+            alt="Special compliment GIF">
+
+          <p class="gift-message">
+            Chuzii, here's your reminder that you don't need to be
+            anyone else to be special. 💙
+            You have your own personality, your own little quirks,
+            and your own way of making memories.
+            Keep being wonderfully YOU, birthday girl!
+          </p>
+        </div>
+      </article>
+
+      <!-- GIFT 6 -->
+      <article class="gift-card">
+        <div class="gift-icon">🎉</div>
+        <h2>Gift 6: Birthday Wish</h2>
+        <p>The last gift has one more surprise waiting!</p>
+
+        <button onclick="toggleGift(6)">Open gift 🎁</button>
+
+        <div class="gift-content" id="gift6">
+          <img
+            src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3cWUyd2hmcXZwMGs3cnB6Nm9iOWluYmgza2IzZmVobTVqMjJvcHVjNSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/W6cSHxAxM6KrA6y9JE/giphy.gif"
+            alt="Birthday wish GIF">
+
+          <p class="gift-message">
+            HAPPY BIRTHDAYYYYY, CHUZII!! 🎉💙
+            I hope this new chapter of your life brings you happiness,
+            peaceful days, unforgettable memories, and so many reasons
+            to smile. May your wishes come true one by one.
+            Stay iconic, birthday girl! 🕶️✨
+          </p>
+
+          <button onclick="openLetter()">Open your birthday letter 💌</button>
+        </div>
+      </article>
+
+    </section>
+
+    <!-- FINAL BIRTHDAY LETTER -->
+    <section class="letter-section" id="birthdayLetter">
+      <div class="letter">
+
+        <h2>Dear Chuzii 💙</h2>
+
+        <p>
+          HAPPIEST BIRTHDAY, MARYAMMM!! 🎂🩵
+        </p>
+
+        <p>
+          Okay, Chuzii, it's your special day, so let me be a little
+          sentimental for a moment. 😭💙 I hope today reminds you how
+          special you are and how much happiness you deserve.
+        </p>
+
+        <p>
+          I hope this new year of your life brings you beautiful memories,
+          genuine smiles, peaceful days, new adventures, and people who
+          appreciate the real you. I hope you get to do the things that
+          make you happy and find little reasons to smile even on
+          ordinary days.
+        </p>
+
+        <p>
+          Life won't always go exactly as planned, but I hope you always
+          remember that you don't need to be perfect to be amazing.
+          Keep growing, keep laughing, keep being your lovely chaotic self,
+          and never feel like you have to change who you are just to fit in.
+        </p>
+
+        <p>
+          I made this little gift room for you because you deserve a
+          birthday surprise of your own. It's not some giant fancy gift,
+          but I hope it makes you smile and reminds you that someone
+          wanted to make your day a little more special. 🫶🏻
+        </p>
+
+        <p>
+          So, Chuzii, enjoy your day, eat something yummy, take cute
+          pictures, laugh a lot, and make some lovely memories.
+          May this year be kind to you and bring you plenty of good things.
+        </p>
+
+        <p>
+          Once again, HAPPY BIRTHDAY, MY CHUZII!! 🎂💙
+          Stay happy, stay safe, and keep being YOU.
+        </p>
+
+        <p class="letter-sign">
+          With lots of birthday wishes,<br>
+          Your friend 💙
+        </p>
+
+        <!-- SECRET PIC BUTTON -->
+        <div class="secret-area">
+          <h3>Psst... Chuzii, one last secret 👀</h3>
+
+          <p>
+            There's one more little surprise for you.
+            But you only get two peeks, okay? 🤨💙
+          </p>
+
+          <button id="picButton" onclick="revealPic()">pic 👀</button>
+
+          <img
+            id="secretPic"
+            class="secret-image"
+            src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExeG11MnZhZnNma2cxamJpc3l4eTZ3d3hoODdmamhmMmltdG4zMGRkNSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/yTMuy9kCjHdhVkdegC/giphy.gif"
+            alt="A secret GIF for Chuzii">
+
+          <p id="secretCaption" class="secret-caption">
+            for you girl 💙
+          </p>
+
+          <button
+            id="hidePicButton"
+            onclick="hidePic()"
+            style="display:none; margin-top:8px;">
+            Hide pic 🙈
+          </button>
+
+          <p id="picStatus" class="secret-status">
+            2 peeks left 👀
+          </p>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    Made with 💙 just for Maryam aka Chuzii.
+    Happy Birthday, girl! 🕶️🎂
+  </footer>
+
+  <script>
+    function toggleGift(number) {
+      const content = document.getElementById("gift" + number);
+      content.classList.toggle("show");
+    }
+
+    function openLetter() {
+      const letter = document.getElementById("birthdayLetter");
+      letter.classList.add("show");
+
+      letter.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }
+
+    let picViews = 0;
+    const maxPicViews = 2;
+
+    function revealPic() {
+      if (picViews >= maxPicViews) {
+        return;
+      }
+
+      picViews++;
+
+      const pic = document.getElementById("secretPic");
+      const caption = document.getElementById("secretCaption");
+      const button = document.getElementById("picButton");
+      const hideButton = document.getElementById("hidePicButton");
+      const status = document.getElementById("picStatus");
+
+      pic.classList.add("show");
+      caption.classList.add("show");
+      hideButton.style.display = "inline-block";
+
+      if (picViews === 1) {
+        status.textContent = "One more peek left, Chuzii! 👀";
+      } else {
+        status.textContent = "Both peeks used! Hope you liked it 💙";
+        button.disabled = true;
+        button.textContent = "No more peeks 🙈";
+      }
+    }
+
+    function hidePic() {
+      document.getElementById("secretPic").classList.remove("show");
+      document.getElementById("secretCaption").classList.remove("show");
+      document.getElementById("hidePicButton").style.display = "none";
+    }
+  </script>
+
+</body>
+</html>
